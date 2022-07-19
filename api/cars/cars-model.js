@@ -13,7 +13,7 @@ const getById = (id) => {
 
 const create = (car) => {
   return db('cars')
-    .insert(account)
+    .insert(car)
     .then(id => getById(id[0]))
 }
 
