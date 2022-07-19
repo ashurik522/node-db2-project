@@ -34,6 +34,24 @@ router.post('/',  checkCarPayload, checkVinNumberUnique, checkVinNumberValid, as
     }
 })
 
+router.put('/:id', checkCarPayload, checkVinNumberUnique, checkVinNumberValid, async (req,res,next) => {
+    try {
+        const data = await Cars.updateById(req.params.id, req.newCar)
+        res.json(data)
+    } catch(err) {
+        next(err)
+    }
+})
+
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const data = await Cars.remove(req.params.id)
+        res.json(data)
+    } catch(err) {
+        next(err)
+    }
+})
+
 router.use((err, req, res, next) => {
     res.status(err.status || 500).json({ message: err.message})
 })
