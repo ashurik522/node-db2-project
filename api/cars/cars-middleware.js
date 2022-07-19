@@ -11,7 +11,27 @@ const checkCarId = async (req, res, next) => {
 }
 
 const checkCarPayload = (req, res, next) => {
+  let { make, model, mileage, vin, title, transmission } = req.body
 
+  if(make == null || make.trim() === ""){
+    res.status(400).json({ message: `make is missing`})
+    return;
+  }
+  if(model == null || model.trim() === ""){
+    res.status(400).json({ message: `model is missing`})
+    return;
+  }
+  if(mileage == null){
+    res.status(400).json({ message: `mileage is missing`})
+    return;
+  }
+  if(vin == null || vin.trim() === ""){
+    res.status(400).json({ message: `vin is missing`})
+    return;
+  }
+
+  req.newCar = { make: make, model: model, mileage: mileage, vin: vin, title: title, transmission: transmission}
+  next()
 }
 
 const checkVinNumberValid = async (req, res, next) => {
